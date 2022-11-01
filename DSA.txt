@@ -32,5 +32,5 @@ int b =a>>1;
 
 
 
-Recursion:-
+Recursion:- when function call itself again and again is recurssion.
 
