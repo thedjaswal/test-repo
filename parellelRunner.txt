@@ -1,0 +1,110 @@
+calling the variable from feature file 
+use the same id in both files 
+store the context of helper feature file 
+variable to store the context of feature file 
+it should be context.variablename
+context from another file should be saved in the variable.
+
+
+to read from another file if the fiel is in the same folder then syntax is ("filename.extension")
+if the file is in other format then the syntax is ("../filename.extension")
+
+
+Parellel Runner is the feature of Karate in which all the featrue file runs simultaniousaly in from one Runner file called runner file.
+to use parallel runner we need to create a runner and then have to pass claspath argument in which we pass the parent class path and then run all the 
+feature files with the generated threads.
+we can also create builder class for running the parallel runner.
+we can use result object to extract information from the parallel builder or runner .
+
+GET ENDPOINT:- this is the point in the UI when request from postman it returns entire data available .
+if we want to recieve the subset of data then we use the Query keyword for that in this way we can get specified data.
+
+we can use multiple parameter to filter out the response from the entire database.
+in the karate framework we use the file in which we can create the variables and create new entries and after that we can find that file with the help of  query functions.
+and Param  this is used to make the query for different objects and with the diffrent key values.
+and Params is used to make queries in single line for multiple parameters Eg:- And Params {id :1406, job Desc: soft Eng}  use embede expression to for making the query.
+the above is the quesy keyword 
+in the form of name and value for making the query 
+And param Id
+And Param Job description are the query parameter to filter out the result.
+after doing this send a get query to find the resuot using queries and parameters.
+
+PATCH request 
+first create the job and then use patch request to update the content
+create a new package in the parent or top level package
+create jbo entry 
+update the entry using the query
+creating a random id 
+make avaialbe the helper feature file 
+specify all the multiple parameter in the form of JSON object 
+specify path and parameter by params keyword
+send the patch request and check the validation 
+add the runner for the feature file 
+
+path parameter is used to locate a resource or it can be defined as 
+URI 
+patch request is used to update the data
+
+
+
+Request Chaining 
+it is the process in which you first create a entry 
+and then update it after the creation 
+in this process output from previous step work as input for next step
+
+
+
+Karate Tags :
+ when we have written the automation code then we have to devide it into some categories 
+for ex the categories ar 
+confidence 
+smoke 
+regression
+slow running 
+fast running
+
+sometime these categories are called  suite
+
+we can add single or multiple tags with feature as well as scenarios 
+after adding the tags in the code  we need to add those mentioned tags into the  runer class 
+@smoke 
+for eg 
+
+we use system property to dynamically pass the value of location and tags to the code 
+the tags are used to run the particulr category to run
+we have to set the properties in the java file 
+ in the karate framework if we want to ignore some of features then we use @ignore 
+in pom.xml we need to specify the parallel runner 
+and the runner is then connected with multipple festure files
+
+Report generation
+cucumber report generation 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+

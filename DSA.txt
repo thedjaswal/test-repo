@@ -1,0 +1,36 @@
+time complexity :- time taken by an algo as a function of the length of input.
+Big Oh:- 
+O():- it uses worst case . so it determines the maximum time it takes. 
+  we find upper bound only 
+  igonre the lower power terms in the values .  constant term are considered as O(1).
+
+bitwise Operator:-
+decimal number-274= 2*10^2+7*10^1+4*10^0
+Binary number=101=1*2^2+0*2^1+1*2^0
+decimal to binary= 13- 1101
+2's compliment of number is :- invert all bit and add 1
+there is no subtraction in binray it is generally 2s comlimention 
+operators 
+& or not 
+5= 010
+~5-101
+>> right shirft operatr= 12>>2   
+12= 1100 -> 0011
+<< left shift 
+12<<2
+ 12-1100 
+1100
+
+int a=5;
+int b =a>>1;
+
+
+
+
+
+
+
+
+
+Recursion:-
+

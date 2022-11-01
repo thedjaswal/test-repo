@@ -1,0 +1,241 @@
+add negative testcase also.
+document all the work day by day .
+
+test plan 
+test cases 
+negative/ positive case 
+SAM overview 
+:- software Assese Management is a business practice that involves managing and optimizing the purchase ,deployment ,maintanence
+,utilization,and and disposal of softwarwe application within an organisation.
+
+Feature: To validate the GET End Point
+To validate the get end point response 
+
+
+Background: Setup the base url  # Background can be used to hold the base url and other parts can be attached through diffrent methods.
+Given url 'http://localhost:9191'   # Given is used to provide precondition 
+And print '======Passed============'
+
+
+Scenario: To get the data in JSON format
+Given path '/normal/webapi/all'
+And header Accept = 'application/json' # header contains additional information which  we want .
+When method get # get is the request type to the server 
+Then status 200 # status code is the sucess status code from server after connection sucessfuly.
+And print response # print is used to print anything like any programing language
+And match response == # match statment is used to match any particular element or we can say that responce from the server.
+"""
+[
+    {
+        "jobId": 1,
+        "jobTitle": "Software Engg",
+        "jobDescription": "To develop andriod application",
+        "experience": [
+            "Google",
+            "Apple",
+            "Mobile Iron"
+        ],
+        "project": [
+            {
+                "projectName": "Movie App",
+                "technology": [
+                    "Kotlin",
+                    "SQL Lite",
+                    "Gradle"
+                ]
+            }
+        ]
+    }
+]
+"""
+
+
+
+
+Scenario: To get the data in XML  format
+Given path '/normal/webapi/all'
+And header Accept = 'application/xml'
+When method get
+Then status 200
+And print response
+And match response == 
+"""
+<List>
+    <item>
+        <jobId>1</jobId>
+        <jobTitle>Software Engg</jobTitle>
+        <jobDescription>To develop andriod application</jobDescription>
+        <experience>
+            <experience>Google</experience>
+            <experience>Apple</experience>
+            <experience>Mobile Iron</experience>
+        </experience>
+        <project>
+            <project>
+                <projectName>Movie App</projectName>
+                <technology>
+                    <technology>Kotlin</technology>
+                    <technology>SQL Lite</technology>
+                    <technology>Gradle</technology>
+                </technology>
+            </project>
+        </project>
+    </item>
+</List>
+"""
+Scenario: To get the data in JSON format using negate condition
+Given path '/normal/webapi/all'
+And header Accept = 'application/json'
+When method get
+Then status 200
+And print response
+And match response != # this case going to fail beacause the responce from the server and mentioned are same
+# the negation means here it should not be equal to the below cosde.
+"""
+[
+    {
+        "jobId": 1,
+        "jobTitle": "Software Engg",
+        "jobDescription": "To develop andriod application",
+        "experience": [
+            "Google",
+            "Apple",
+            "Mobile Iron"
+        ],
+        "project": [
+            {
+                "projectName": "Movie App",
+                "technology": [
+                    "Kotlin",
+                    "SQL Lite",
+                    "Gradle"
+                ]
+            }
+        ]
+    }
+]
+"""
+
+
+Scenario: To get the data in JSON format a specific property
+Given path '/normal/webapi/all'
+And header Accept = 'application/json'
+When method get
+Then status 200
+And print response
+And match response contains deep {"jobDescription": "To develop andriod application"} # deep is used to serch element in deep loops .
+And match response contains deep {"project":[{"projectName": "Movie App"}]}
+
+"""
+[
+    {
+        "jobId": 1,
+        "jobTitle": "Software Engg",
+        "jobDescription": "To develop andriod application",
+        "experience": [
+            "Google",
+            "Apple",
+            "Mobile Iron"
+        ],
+        "project": [
+            {
+                "projectName": "Movie App",
+                "technology": [
+                    "Kotlin",
+                    "SQL Lite",
+                    "Gradle"
+                ]
+            }
+        ]
+    }
+]
+"""
+
+response.[0].jobId == 1
+response.[0].experience[1] == 'Apple'
+response.[0].project[0].projectName == 'Movie App'
+response.[0].project[0].technology[2] =='Gradle'
+
+* -> walid card char
+response.[0].experience[*] -> ["Google"," Apple","Moblie Iron"]
+response.[0].project[0].technology[*] -> ["Kotlin","SQL Lite","Gradle"]
+
+response/List/item/jobId == '1'
+response/List/item/jobTitle == 'Software Engg'
+response/List/item/experience/experience[1] == 'Google'
+response/List/item/project/projectName == 'Movie App'
+response/List/item/project/project/technology/technology[2] == 'SQL lite'
+
+* def jobID = 100
+* def jobTitle = "Manager"
+
+{"jobId": #(jobID),"jobTitle": jobTitle, "jobDescription": "To develop andriod performance application", "experience": [ "Google","Apple","Mobile Iron" ], "project": [{"projectName": "Movie App","technology": ["Kotlin","SQL Lite",  "Gradle" ] } ] }
+
+when the variables are repalced with the property value then  the karate frame at run time does not identify that whether this is a 
+ value or a variable so  to diffrenciate between the value and variable we use the embaded statments
+below is the example for this.
+#(jobID)
+#(jobTitle)
+ this is the embaded expression which is used to decleare that these are the variables not the values 
+
+
+* def projectSchema = { "projectName": '#string' , "technology": '#[] #string'}
+* def mainSchema = { "jobId": '#number' , "jobTitle": '#string' , "jobDescription": #string' , "experience": '#[] # string', "project": '#[] ##(projectSchema)' }
+
+"""
+#[] ##(mainSchema)
+
+"""
+
+
+Scenario: - To update the Job Entry for existing job in JSON format by calling another feature file
+  
+    # <Gherkin Keyword> <call> <read(<Location of feature file>)>
+    
+    Given call read('createJobEntry.feature')
+    # put request
+    Given path 'normal/webapi/update'
+    And request
+      """
+      {
+          "jobId": 125,
+          "jobTitle": "Google Engg",
+          "jobDescription": "To develop andriod performance application ",
+          "experience": [
+              "Google",
+              "Apple",
+              "Mobile Iron"
+          ],
+          "project": [
+              {
+                  "projectName": "Movie App",
+                  "technology": [
+                      "Kotlin",
+                      "SQL Lite",
+                      "Gradle"
+                  ]
+              }
+          ]
+      }
+
+      """
+    And headers {Accept : 'application/json' , Content-Type : 'application/json'}
+    When method put
+    Then status 401
+    Then print response
+
+this is very important to use the krate framework for testing 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
